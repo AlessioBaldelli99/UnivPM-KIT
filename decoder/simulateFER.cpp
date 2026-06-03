@@ -137,9 +137,9 @@ std::vector<double> make_epsilon_list(
 struct DecodeParams
 {
     // Code parameters
-    int n = 64;
-    int k = 18;
-    int m = 64;
+    int n = 512;
+    int k = 174;
+    int m = 384;
 
     // 0: flooding BP
     // 1: genie-aided BP
@@ -153,14 +153,14 @@ struct DecodeParams
     int number_guess = 1;
     int dec_iter_num = 15;
 
-    double ep0 = 0.1;
+    double ep0 = 0.001;
     double p = 0.1;
 
     std::uint64_t max_frame_errors = 300;
     std::uint64_t max_decoded_words = 100000000;
 
     std::uint64_t progress_interval = 10000000;
-    double early_stop_fer = 2e-6;
+    double early_stop_fer = 2e-5;
 
     EpsilonMode epsilon_mode = EpsilonMode::DecadeLinearRange;
 
@@ -283,7 +283,7 @@ std::string p_folder_name(double p)
 fs::path make_output_dir(const DecodeParams &params)
 {
     fs::path output_dir =
-        fs::path("./decoding_results") /
+        fs::path("./decoding_results/fix0_001") /
         (std::to_string(params.n) + "_" + std::to_string(params.k)) /
         result_folder_name(params.decoding_option, params.noise_model);
 
@@ -421,12 +421,13 @@ DecodeResult run_single_epsilon(
             stabilizerCodes code(params.n, params.k, params.m, matrix_supplier);
 
             code.DecodingOption = params.decoding_option;
+            code.noise_model = params.noise_model;
 
             code.add_error_given_epsilon(epsilon);
 
             const bool success = code.decode(
                 params.dec_iter_num,
-                params.ep0,
+                params.ep0,  //TODO:change back later to ep0
                 params.number_guess,
                 params.p
             );
@@ -482,7 +483,7 @@ int main()
     DecodeParams base_params;
 
     const std::vector<double> p_values = {
-        0.0,
+        0,
         0.1,
         0.01,
         0.001
@@ -500,7 +501,8 @@ int main()
 
         const fs::path output_dir = make_output_dir(params);
         const fs::path params_path = output_dir / "params.json";
-        const fs::path results_path = output_dir / "resultsP0_1.csv";
+        const fs::path results_path =
+            output_dir / ("results" + std::to_string(p_value) + ".csv");
         const fs::path log_path = output_dir / "run.log";
 
         std::ofstream log_file(log_path);

@@ -771,6 +771,16 @@ def build_css_meta_matrix(Mx, Mz):
     Mx = as_gf2_matrix(Mx)
     Mz = as_gf2_matrix(Mz)
 
+    np.set_printoptions(
+        threshold=np.inf,
+        linewidth=np.inf,
+        precision=1,
+        suppress=True
+    )
+
+    print(Mz)
+
+
     rx, mx = Mx.shape
     rz, mz = Mz.shape
 
@@ -858,8 +868,10 @@ if __name__ == "__main__":
     # HX_PATH = r"../PCMs/QD-LDPC CSS [[128,36,8]]/QD[[128,36,8]]_H_X.csv"
     # HZ_PATH = r"../PCMs/QD-LDPC CSS [[128,36,8]]/QD[[128,36,8]]_H_Z.csv"
 
-    HX_PATH = r"../PCMs/QD-LDPC CSS code [[64,18,8]]/QD[[64,18,8]]_H_X.csv"
-    HZ_PATH = r"../PCMs/QD-LDPC CSS code [[64,18,8]]/QD[[64,18,8]]_H_Z.csv"
+    # HX_PATH = r"../PCMs/QD-LDPC CSS code [[64,18,8]]/QD[[64,18,8]]_H_X.csv"
+    # HZ_PATH = r"../PCMs/QD-LDPC CSS code [[64,18,8]]/QD[[64,18,8]]_H_Z.csv"
+    HX_PATH = r"/Users/sisimiao/CLionProjects/UnivPM-KIT/PCMs/PCMs of [[512,174,8]] DLR's code/IS[[512,174,8]]_H_X.csv"
+    HZ_PATH = r"/Users/sisimiao/CLionProjects/UnivPM-KIT/PCMs/PCMs of [[512,174,8]] DLR's code/IS[[512,174,8]]_H_Z.csv"
 
 
     HX_data = analyze_pcm(HX_PATH, name="H_X")
@@ -867,6 +879,7 @@ if __name__ == "__main__":
 
     Hx = HX_data["H_perm"]
     Hz = HZ_data["H_perm"]
+
 
     # For CSS codes:
     # Gz is the nullspace of Hx

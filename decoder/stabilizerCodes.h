@@ -104,8 +104,8 @@ class stabilizerCodes {
     std::vector<std::vector<unsigned>> G;
     std::vector<std::vector<unsigned>> Meta;
 
-    int DecodingOption;
-    int noise_model;
+    int DecodingOption = 0;
+    int noise_model = 0;
 
     static inline double clamp_msg(double x, double limit = 29.9)
     {
