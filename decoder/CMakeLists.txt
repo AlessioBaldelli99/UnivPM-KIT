@@ -11,6 +11,20 @@ add_executable(sim_FER
         helpers.cpp
 )
 
+add_executable(sim_FER_paperM
+        simulateFER_paperM.cpp
+        stabilizerCodes.cpp
+        fileReader.cpp
+        helpers.cpp
+)
+
+add_executable(sim_FER_bp2osd64
+        simulateFER_bp2osd64.cpp
+        stabilizerCodes.cpp
+        fileReader.cpp
+        helpers.cpp
+)
+
 add_executable(test_prog
         main.cpp
         stabilizerCodes.cpp
@@ -23,6 +37,8 @@ find_package(OpenMP COMPONENTS CXX)
 
 if(OpenMP_CXX_FOUND)
     target_link_libraries(sim_FER PRIVATE OpenMP::OpenMP_CXX)
+    target_link_libraries(sim_FER_paperM PRIVATE OpenMP::OpenMP_CXX)
+    target_link_libraries(sim_FER_bp2osd64 PRIVATE OpenMP::OpenMP_CXX)
 else()
     # macOS Apple Clang fallback for Homebrew libomp
     if(APPLE)
@@ -48,12 +64,32 @@ else()
                     -Xpreprocessor
                     -fopenmp
             )
+            target_compile_options(sim_FER_paperM PRIVATE
+                    -Xpreprocessor
+                    -fopenmp
+            )
+            target_compile_options(sim_FER_bp2osd64 PRIVATE
+                    -Xpreprocessor
+                    -fopenmp
+            )
 
             target_include_directories(sim_FER PRIVATE
                     ${LIBOMP_PREFIX}/include
             )
+            target_include_directories(sim_FER_paperM PRIVATE
+                    ${LIBOMP_PREFIX}/include
+            )
+            target_include_directories(sim_FER_bp2osd64 PRIVATE
+                    ${LIBOMP_PREFIX}/include
+            )
 
             target_link_libraries(sim_FER PRIVATE
+                    ${LIBOMP_PREFIX}/lib/libomp.dylib
+            )
+            target_link_libraries(sim_FER_paperM PRIVATE
+                    ${LIBOMP_PREFIX}/lib/libomp.dylib
+            )
+            target_link_libraries(sim_FER_bp2osd64 PRIVATE
                     ${LIBOMP_PREFIX}/lib/libomp.dylib
             )
         else()

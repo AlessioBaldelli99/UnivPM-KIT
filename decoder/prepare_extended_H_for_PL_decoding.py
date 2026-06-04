@@ -868,10 +868,10 @@ if __name__ == "__main__":
     # HX_PATH = r"../PCMs/QD-LDPC CSS [[128,36,8]]/QD[[128,36,8]]_H_X.csv"
     # HZ_PATH = r"../PCMs/QD-LDPC CSS [[128,36,8]]/QD[[128,36,8]]_H_Z.csv"
 
-    # HX_PATH = r"../PCMs/QD-LDPC CSS code [[64,18,8]]/QD[[64,18,8]]_H_X.csv"
-    # HZ_PATH = r"../PCMs/QD-LDPC CSS code [[64,18,8]]/QD[[64,18,8]]_H_Z.csv"
-    HX_PATH = r"/Users/sisimiao/CLionProjects/UnivPM-KIT/PCMs/PCMs of [[512,174,8]] DLR's code/IS[[512,174,8]]_H_X.csv"
-    HZ_PATH = r"/Users/sisimiao/CLionProjects/UnivPM-KIT/PCMs/PCMs of [[512,174,8]] DLR's code/IS[[512,174,8]]_H_Z.csv"
+    HX_PATH = r"../PCMs/QD-LDPC CSS code [[64,18,8]]/QD[[64,18,8]]_H_X.csv"
+    HZ_PATH = r"../PCMs/QD-LDPC CSS code [[64,18,8]]/QD[[64,18,8]]_H_Z.csv"
+    # HX_PATH = r"/Users/sisimiao/CLionProjects/UnivPM-KIT/PCMs/PCMs of [[512,174,8]] DLR's code/IS[[512,174,8]]_H_X.csv"
+    # HZ_PATH = r"/Users/sisimiao/CLionProjects/UnivPM-KIT/PCMs/PCMs of [[512,174,8]] DLR's code/IS[[512,174,8]]_H_Z.csv"
 
 
     HX_data = analyze_pcm(HX_PATH, name="H_X")
