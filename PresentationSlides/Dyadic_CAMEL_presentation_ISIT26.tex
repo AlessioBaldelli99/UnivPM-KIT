@@ -46,7 +46,7 @@
 \input{\templates/makros_own.tex}
 
 \usetikzlibrary{decorations.pathreplacing,fit,positioning}
-\pgfplotsset{compat=1.17}
+\pgfplotsset{compat=1.18}
 
 % A compact frame title avoids collisions with dense technical slides.
 \setbeamertemplate{frametitle}
@@ -151,7 +151,7 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
                                  \item Map 4 Pauli errors $\{\I,\X,\Z,\Y\}$ into GF(4) elements $\{\If,\Xf,\Zf,\Yf\}$
                                  \item E.g., $\I\mapsto \If,\X \mapsto \Xf,\Z\mapsto \Zf,\Y\mapsto \Yf$
                              \end{itemize}
-                             \item However, BP for QLDPC codes often yields poor performance
+                             \item However, BP4 for QLDPC codes often yields poor performance
             \end{itemize}}
         \end{column}
 
@@ -188,7 +188,7 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
             \begin{columns}[T,totalwidth=\linewidth]
                 \begin{column}{0.6\linewidth}
                     \begin{itemize}
-                        \item \schlagwort{Example}: PCM of a $\llbracket n,k \rrbracket$ CSS-type QLDPC code~\citereference{CRSS98}
+                        \item \schlagwort{Example}: PCM of an $\llbracket n,k \rrbracket$ CSS-type QLDPC code~\citereference{CRSS98}
                         \vspace{-1ex}
                     \[
                         \bS =
@@ -234,14 +234,14 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
  \vspace{1em}
       {\scriptsize
     \renewcommand{\arraystretch}{1}
-    \begin{tabular}{@{}l p{0.9\textwidth}@{}}
+    \begin{tabular}{lp{0.93\textwidth}}
     \visible<1-2>{
-      \textcolor{kit-green100}{[CRSS98]} \textcolor{white}{x}&
+      \textcolor{kit-green100}{[CRSS98]}&
       \textcolor{kit-green100}{
         A.~R. Calderbank, E.~M. Rains, P.~W. Shor, and N.~J.~A. Sloane, ``Quantum error correction via codes over \textit{{GF}(4)},'' \emph{TIT}, 1998.
       }\\}
       \visible<2>{
-       \textcolor{kit-green100}{[ETV99]} \textcolor{white}{x}&
+       \textcolor{kit-green100}{[ETV99]} &
       \textcolor{kit-green100}{
         T. Etzion, A. Trachtenberg, and A. Vardy, ``Which codes have cycle-free Tanner graphs?,'' \emph{TIT}, 1999.
       }
@@ -271,7 +271,7 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
 
                 \[
                     \bH_X \bH_Z^{\mathsf{T}}
-                    \overset{\begin{subarray}{c} \text{mod $2$}\end{subarray}}{=}
+                    =
                     \bm{0}
                 \]
             \end{column}
@@ -439,7 +439,7 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
                 \bigskip
                 \item All cycles of length 4 are \schlagwort{assembled in the last column}
                 \bigskip
-                \item \eqref{eq:eq1} is the starting point of some good classical LDPC code construction methods
+                \item \eqref{eq:eq1} is the starting point of some good classical LDPC code construction methods, e.g.,~\citereference{KLF01}
             \end{itemize}
         \end{column}
     \end{columns}
@@ -447,7 +447,7 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
     \bigskip
     \bigskip
     \bigskip
-
+    \addreference{KLF01}{Y.~Kou, S.~Lin, and M.~Fossorier, ``Low-density parity-check codes based on finite geometries: a rediscovery and new results,'' \emph{IEEE Trans. Inf. Theory}, vol.~47, no.~7, 2001.}
 \end{frame}
 
 
@@ -480,7 +480,7 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
 	\begin{column}{0.85\textwidth}
 
 		\begin{itemize}
-			\item Together, CAMEL (\textbf{C}ycle \textbf{A}ssembling and \textbf{M}itigating \textbf{E}nsemb\textbf{L}e decoding)
+			\item Together, \schlagwort{CAMEL} (\textbf{C}ycle \textbf{A}ssembling and \textbf{M}itigating \textbf{E}nsemb\textbf{L}e decoding)
                             \bigskip
                             \pause
                 \item In previous work, quasi-cyclic CAMEL codes have been presented~\citereference{CAMEL}
@@ -631,7 +631,7 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
       \begin{column}{0.35\textwidth}
       \vspace{2cm}
       \centering
-      \includegraphics[width=\linewidth,height=0.52\textheight,keepaspectratio]{figures/Hx_spy2.pdf}
+      \includegraphics[width=\linewidth,height=0.52\textheight,keepaspectratio]{figures/Figure_1.pdf}
     \end{column}
   \end{columns}
   \pause
@@ -655,16 +655,16 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
       \end{itemize}
         \begin{center}
           \begin{minipage}{0.89\textwidth}
-            \begin{beamerboxesrounded}[upper=color_upper,lower=color_lower,width=\linewidth]{\textbf{Girth $6$ condition for QD matrices}}
+            \begin{theobox}{\textbf{Girth $6$ condition for QD matrices}}{
               Let $\bP\in\Fq^{w\times 2^\ell}$ be generated by
               \[
                 p_{u,j}=a_u\lambda_j+b_u
               \]
-              where the multipliers $a_u\in\Fq\backslash\{0\}$ are all distinct and $\lambda_j = \psi^{-1} (j)$. Then, the QD matrix lifted from $\bP$ has girth at least $6$.
-            \end{beamerboxesrounded}
+              where the multipliers $a_u\in\Fq\backslash\{0\}$ are all distinct and $\lambda_j = \psi^{-1} (j)$. Then, the QD matrix lifted from $\bP$ has girth at least $6$.}
+            \end{theobox}
           \end{minipage}
         \end{center}
-
+\vspace{-1em}
         \begin{itemize}
           \item Proof idea
           \begin{itemize}
@@ -702,7 +702,7 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
 \begin{frame}[c]{Dyadic CAMEL Codes: CSS Construction}
 
 
-  \begin{itemize}
+  \begin{enumerate}
     \item Start from $\bP\in\Fq^{w\times 2^\ell}$ generated by \(p_{u,j}=a_u\lambda_j+b_u\)
     \item Lift $\bP$ to QD PCM $\bH \in \mathbb{F}_2^{w 2^{\ell} \times 2^{2\ell}}$
     \item Perform partitioning
@@ -713,7 +713,7 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
     \[ \bH_1\bH_2^\top=\bone .\]
 
     \item Append the all-one column to obtain the CSS matrices $\bH_X,\bH_Z$
-  \end{itemize}
+  \end{enumerate}
 \end{frame}
 
 
@@ -801,16 +801,17 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
     \item Compare the following decoders
   \end{itemize}
 
-  \begin{columns}[c,onlytextwidth]
+  \begin{columns}[t,onlytextwidth]
     \begin{column}{0.05\textwidth}
       \textcolor{white}{xxxx}
     \end{column}
     \begin{column}{0.3\textwidth}
       \begin{minipage}[c][2.9cm][c]{\linewidth}
+          \vspace{-1em}
         \begin{itemize}
-          \item<2-> plain \BPfour{} decoding
+          \item<2-> Plain \BPfour{} decoding
           \item<3-> CAMEL decoding
-          \item<4-> genie-aided decoding
+          \item<4-> Genie-aided decoding
         \end{itemize}
       \end{minipage}
 
@@ -818,7 +819,7 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
     \begin{column}{0.4\textwidth}
       \begin{minipage}[c][2.9cm][c]{\linewidth}
       \centering
-      \visible<3->{\resizebox{\linewidth}{!}{\input{figures/block}}}
+      \visible<2->{\resizebox{\linewidth}{!}{\input{figures/block}}}
       \end{minipage}
     \end{column}
 
@@ -836,13 +837,13 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
       \visible<2->{\resizebox{0.98\textwidth}{!}{\input{figures/FER_D1}}}
     \end{column}
     \begin{column}{0.5\textwidth}
-      \begin{tabular}{cccl}
+      \begin{tabular}{lccl}
         \toprule
         Code & $n$ & $k$ & Decoder\\
         \midrule
         D1 & 257 & 121 & CAMEL\\
         C1~\citereference{CAMEL} & 290 & 128 & CAMEL\\
-        H1~\citereference{TZ13} & 400 & 16 & BP+OSD~\citereference{RWBC20}\\
+        \visible<4>{H1~\citereference{TZ13}} & \visible<4>{400} & \visible<4>{16} & \visible<4>{BP+OSD~\citereference{RWBC20}}\\
         \bottomrule
       \end{tabular}
 
@@ -868,8 +869,8 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
     \begin{tabular}{lp{0.93\textwidth}}
       \textcolor{kit-green100}{[TZ13]} &
       \textcolor{kit-green100}{J.-P.~Tillich and G.~Z\'emor, ``Quantum {LDPC} codes with positive rate and minimum distance proportional to $\sqrt{n}$,'' \emph{TIT}, 2013.}\\
-      \textcolor{kit-green100}{[RWBC20]} &
-      \textcolor{kit-green100}{J.~Roffe, D.~R. White, S.~Burton, and E.~Campbell, ``Decoding across the quantum low-density parity-check code landscape,'' \emph{Physical Review Research}, 2020.}
+      \visible<4>{\textcolor{kit-green100}{[RWBC20]} &
+      \textcolor{kit-green100}{J.~Roffe, D.~R. White, S.~Burton, and E.~Campbell, ``Decoding across the quantum low-density parity-check code landscape,'' \emph{Physical Review Research}, 2020.}}
     \end{tabular}
   }
 
@@ -880,45 +881,6 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
 %  \endreferences
 \end{frame}
 
-\begin{frame}[c]{Numerical Results: D2 Code}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.5\textwidth}
-      \centering
-      \resizebox{0.98\textwidth}{!}{\input{figures/FER_codes_from_theorem2}}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      {
-      \begin{tabular}{cccl}
-        \toprule
-        Code & $n$ & $k$ & Decoder\\
-        \midrule
-        D2 & 1025 & 583 & CAMEL\\
-        C2~\citereference{CAMEL} & 962 & 540 & CAMEL\\
-        E5~\citereference{CAMEL} & 1057 & 571 & CAMEL\\
-        B1~\citereference{MM04} & 800 & 400 & BP+enhanced \\
-        &&&Feedback~\citereference{WSBW12}\\
-        \bottomrule
-      \end{tabular}
-      }
-
-
-      \begin{itemize}
-        \item Plain \BPfour{} already has a strong waterfall and no observable error floor
-        \item Performance is comparable to E5 and B1, while D2 has higher rate than both
-      \end{itemize}
-    \end{column}
-  \end{columns}
-  \vspace{0.4cm}
-  {\scriptsize
-    \renewcommand{\arraystretch}{1}
-    \begin{tabular}{lp{0.93\textwidth}}
-      \textcolor{kit-green100}{[MM04]} &
-      \textcolor{kit-green100}{D.~J.~C. MacKay, G.~Mitchison, and P.~L. McFadden, ``Sparse-graph codes for quantum error correction,'' \emph{TIT}, 2004.}\\
-      \textcolor{kit-green100}{[WSBW12]} &
-      \textcolor{kit-green100}{Y.-J.~Wang, B.~C. Sanders, B.-M.~Bai, and X.-M.~Wang, ``Enhanced feedback iterative decoding of sparse quantum codes,'' \emph{TIT}, 2012.}
-    \end{tabular}
-  }
-\end{frame}
 
 \begin{frame}[c]{Conclusion}
   \begin{columns}[T,onlytextwidth]
@@ -1012,6 +974,47 @@ $^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Te
   \endgroup
 \end{frame}
 
+\appendix
+
+\begin{frame}[c]{Numerical Results: D2 Code}
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.5\textwidth}
+            \centering
+            \resizebox{0.98\textwidth}{!}{\input{figures/FER_codes_from_theorem2}}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+        {
+            \begin{tabular}{lccl}
+                \toprule
+                Code & $n$ & $k$ & Decoder\\
+                \midrule
+                D2 & 1025 & 583 & CAMEL\\
+                C2~\citereference{CAMEL} & 962 & 540 & CAMEL\\
+                E5~\citereference{CAMEL} & 1057 & 571 & CAMEL\\
+                B1~\citereference{MM04} & 800 & 400 & BP+enhanced \\
+                &&&Feedback~\citereference{WSBW12}\\
+                \bottomrule
+            \end{tabular}
+        }
+
+
+            \begin{itemize}
+                \item Plain \BPfour{} already has a strong waterfall and no observable error floor
+                \item Performance is comparable to E5 and B1, while D2 has higher rate than both
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    \vspace{0.4cm}
+    {\scriptsize
+    \renewcommand{\arraystretch}{1}
+        \begin{tabular}{lp{0.93\textwidth}}
+            \textcolor{kit-green100}{[MM04]} &
+            \textcolor{kit-green100}{D.~J.~C. MacKay, G.~Mitchison, and P.~L. McFadden, ``Sparse-graph codes for quantum error correction,'' \emph{TIT}, 2004.}\\
+            \textcolor{kit-green100}{[WSBW12]} &
+            \textcolor{kit-green100}{Y.-J.~Wang, B.~C. Sanders, B.-M.~Bai, and X.-M.~Wang, ``Enhanced feedback iterative decoding of sparse quantum codes,'' \emph{TIT}, 2012.}
+        \end{tabular}
+    }
+\end{frame}
 
 
 \end{document}
