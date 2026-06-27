@@ -1,0 +1,1017 @@
+\documentclass[10pt, aspectratio=169]{beamer}
+
+\newcommand{\templates}{cel-slides}
+
+\input{\templates/packages.tex}
+\input{\templates/KITColors.tex}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage{braket}
+\providecolor{KITblack}{RGB}{0,0,0}
+\definecolor{myred}{RGB}{202,0,32}
+
+% Template switches
+\newbool{space_for_face}
+\boolfalse{space_for_face}
+\newbool{small_subitems}
+\boolfalse{small_subitems}
+\newbool{hide_author_in_footer}
+\booltrue{hide_author_in_footer}
+\newbool{cel_on_title}
+\booltrue{cel_on_title}
+\newbool{erc_on_title}
+\booltrue{erc_on_title}
+\newbool{dfg_on_title}
+\boolfalse{dfg_on_title}
+\newbool{bmbf_on_title}
+\boolfalse{bmbf_on_title}
+\newbool{bmftr_on_title}
+\booltrue{bmftr_on_title}
+\newbool{bmwk_on_title}
+\boolfalse{bmwk_on_title}
+\newbool{bmwi_on_title}
+\boolfalse{bmwi_on_title}
+\newbool{use_real_footnotesize}
+\booltrue{use_real_footnotesize}
+\newbool{overview_at_subsection}
+\boolfalse{overview_at_subsection}
+\newbool{first_overview_unshaded}
+\booltrue{first_overview_unshaded}
+\newbool{use_legacy_citations}
+\booltrue{use_legacy_citations}
+\newbool{EnglishLanguage}
+\booltrue{EnglishLanguage}
+
+\input{\templates/modifications.tex}
+\input{\templates/makros_own.tex}
+
+\usetikzlibrary{decorations.pathreplacing,fit,positioning}
+\pgfplotsset{compat=1.17}
+
+% A compact frame title avoids collisions with dense technical slides.
+\setbeamertemplate{frametitle}
+{
+  \begin{textblock*}{135mm}(6mm,4mm)
+    {\bfseries\usebeamerfont{frametitle}\textcolor{black}{\LARGE\insertframetitle}}
+  \end{textblock*}
+  \begin{textblock*}{15mm}(146mm,4mm)
+    \iflanguage{english}{%
+      \includegraphics[width=18mm]{\templates/logos/kitlogo_en_rgb}
+    }{%
+      \includegraphics[width=18mm]{\templates/logos/kitlogo_de_rgb}
+    }%
+  \end{textblock*}
+  \vspace{1.05cm}
+}
+
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeamerfont{footnote}{size=\tiny}
+
+% Local notation
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\bD}{\mathbf{D}}
+\newcommand{\bM}{\mathbf{M}}
+\newcommand{\bS}{\mathbf{S}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bone}{\mathbf{1}}
+\newcommand{\bzero}{\mathbf{0}}
+\newcommand{\br}{\mathbf{r}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\bz}{\mathbf{z}}
+\newcommand{\Ftwo}{\mathbb{F}_{2}}
+\newcommand{\Fq}{\mathbb{F}_{2^\ell}}
+\newcommand{\CAMEL}{\textsc{CAMEL}}
+\newcommand{\DPM}{DPM}
+\newcommand{\QD}{QD}
+\newcommand{\BPfour}{BP4}
+\newcommand{\baromega}{\bar{\omega}}
+\newcommand{\I}{\bm{I}}
+\newcommand{\X}{\textcolor{KITblue}{\bm{X}}}
+\newcommand{\Z}{\textcolor{KITorange}{\bm{Z}}}
+\newcommand{\Y}{\textcolor{KITred}{\bm{Y}}}
+\newcommand{\If}{0}
+\newcommand{\Xf}{\textcolor{KITblue}{\omega}}
+\newcommand{\Zf}{\textcolor{KITorange}{\baromega}}
+\newcommand{\Yf}{\textcolor{KITred}{1}}
+\newcommand{\codeparams}[2]{\llbracket #1,#2\rrbracket}
+\newcommand{\tinycite}[1]{\textcolor{KITblack!70}{\scriptsize #1}}
+\newcommand{\dyadicAblock}[1]{\textcolor{myred}{#1}}
+\newcommand{\dyadicBblock}[1]{\textcolor{KITblue}{#1}}
+\newcommand{\dyadicfour}[4]{%
+  \begin{pmatrix}
+    \dyadicAblock{#1} & \dyadicAblock{#2} & \dyadicBblock{#3} & \dyadicBblock{#4}\\
+    \dyadicAblock{#2} & \dyadicAblock{#1} & \dyadicBblock{#4} & \dyadicBblock{#3}\\
+    \dyadicBblock{#3} & \dyadicBblock{#4} & \dyadicAblock{#1} & \dyadicAblock{#2}\\
+    \dyadicBblock{#4} & \dyadicBblock{#3} & \dyadicAblock{#2} & \dyadicAblock{#1}
+  \end{pmatrix}}
+\newcommand{\DtwoExampleMatrix}{%
+  \begin{pmatrix}
+    0&0&1&0&0&0&0&0\\
+    0&0&0&1&0&0&0&0\\
+    1&0&0&0&0&0&0&0\\
+    0&1&0&0&0&0&0&0\\
+    0&0&0&0&0&0&1&0\\
+    0&0&0&0&0&0&0&1\\
+    0&0&0&0&1&0&0&0\\
+    0&0&0&0&0&1&0&0
+  \end{pmatrix}}
+
+\title[Sisi Miao: CSS QLDPC Codes based on Dyadic Matrices]{Quantum CSS LDPC Codes based on Dyadic Matrices for \\ Belief Propagation-based Decoding}
+\author[Sisi Miao]{\texorpdfstring{Alessio Baldelli$^\dagger$,
+Massimo Battaglioni$^\dagger$,
+Jonathan Mandelbaum$^\star$,
+\underline{Sisi Miao}$^\star$,
+Laurent Schmalen$^\star$\\
+\footnotesize $^\dagger$\, \emph{Department of Information Engineering}, Universit\`a Politecnica delle Marche, Ancona 60131, Italy\\
+$^\star$\,\emph{Communications Engineering Lab (CEL)}, Karlsruhe Institute of Technology (KIT), 76187 Karlsruhe, Germany}{Alessio Baldelli, Massimo Battaglioni, Jonathan Mandelbaum, Sisi Miao, Laurent Schmalen}}
+\institute{Karlsruhe Institute of Technology (KIT), Communications Engineering Lab (CEL)}
+%\date{ISIT 2026}
+
+\usepackage{makecell}
+\begin{document}
+\selectlanguage{english}
+
+\begin{frame}[plain]
+  \maketitle
+\end{frame}
+
+
+\begin{frame}[c]{Background}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \onslide<1->{\begin{itemize}
+                             \item Quantum error-correcting codes are crucial for realizing quantum computers
+                             \item \schlagwort{Quantum LDPC (QLDPC) codes} are promising candidates
+                             \item Belief propagation (BP) is the native decoder for LDPC codes
+                             \item In principle, \schlagwort{quaternary BP (BP4)} can be used to decode QLDPC codes
+                             \begin{itemize}
+                                 \item Map 4 Pauli errors $\{\I,\X,\Z,\Y\}$ into GF(4) elements $\{\If,\Xf,\Zf,\Yf\}$
+                                 \item E.g., $\I\mapsto \If,\X \mapsto \Xf,\Z\mapsto \Zf,\Y\mapsto \Yf$
+                             \end{itemize}
+                             \item However, BP for QLDPC codes often yields poor performance
+            \end{itemize}}
+        \end{column}
+
+        \begin{column}{0.4\textwidth}
+            \onslide<2>{
+                \vspace{1cm}
+
+
+                \centering \phantom{xxxxxxxx} $\llbracket 72,2,6 \rrbracket$ toric code~\citereference{Kit03}
+
+                \vspace{-0.4cm}
+
+                \begin{center}
+                    \input{figures/toric}
+                \end{center}}
+        \end{column}
+    \end{columns}
+    \bigskip
+    \bigskip
+    \bigskip
+    \onslide<2>{
+        \addreferences{Kit03}{A. Yu. Kitaev, ``Fault-tolerant quantum computation by anyons,'' \emph{Annals of physics}, 2003.}
+        {Edm65}{J. Edmonds, ``Paths, trees, and flowers,'' \emph{Canadian Journal of Mathematics}, 1965}
+        \endreferences}
+\end{frame}
+
+\begin{frame}[c]{Problem}
+\visible<1-2>{
+    \begin{itemize}
+        \item Short cycles of length 4 are \schlagwort{unavoidable} in the Tanner graph of QLDPC codes
+    \end{itemize}
+    
+
+            \begin{columns}[T,totalwidth=\linewidth]
+                \begin{column}{0.6\linewidth}
+                    \begin{itemize}
+                        \item \schlagwort{Example}: PCM of a $\llbracket n,k \rrbracket$ CSS-type QLDPC code~\citereference{CRSS98}
+                        \vspace{-1ex}
+                    \[
+                        \bS =
+                        \begin{pmatrix}
+                            \Xf \bH_X\\
+                            \Zf \bH_Z
+                        \end{pmatrix}
+                    \]
+                        \end{itemize}
+                \end{column}
+                \begin{column}{0.4\linewidth}
+
+                    \resizebox{!}{2.5cm}{\input{figures/quantum_bch_tanner_graph}}
+                \end{column}
+            \end{columns}
+            }
+            \vspace{-1cm}
+\visible<2>{
+            \begin{columns}[c,totalwidth=\linewidth]
+                \begin{column}{\linewidth}
+                    \begin{itemize}
+            \item By construction
+            \[
+                \bH_X \bH_Z^{\mathsf{T}}
+                \overset{\begin{subarray}{c} \text{mod $2$}\end{subarray}}{=}
+                \bm{0}
+                \Leftrightarrow
+                \text{Every row of $\bH_X$ has an even number of overlapping 1s with every row of $\bH_Z$}
+            \]
+            \item Thus, the rows either have no overlap or form a length-4 cycle, e.g.,
+            \[
+                \begin{pmatrix}0&0&1&1&0&0\\1&1&0&0&0&0\end{pmatrix}
+                \;\;\;\;\;\text{ or }\;\;\;\;\;
+                \begin{pmatrix}1&1&0&0&0&0\\1&1&0&0&0&0\end{pmatrix}
+            \]
+            \item Codes with tree-like Tanner graphs have poor minimum distance~\citereference{ETV99}
+        \end{itemize}
+        
+
+        \end{column}
+    \end{columns}
+    }
+ \vspace{1em}
+      {\scriptsize
+    \renewcommand{\arraystretch}{1}
+    \begin{tabular}{@{}l p{0.9\textwidth}@{}}
+    \visible<1-2>{
+      \textcolor{kit-green100}{[CRSS98]} \textcolor{white}{x}&
+      \textcolor{kit-green100}{
+        A.~R. Calderbank, E.~M. Rains, P.~W. Shor, and N.~J.~A. Sloane, ``Quantum error correction via codes over \textit{{GF}(4)},'' \emph{TIT}, 1998.
+      }\\}
+      \visible<2>{
+       \textcolor{kit-green100}{[ETV99]} \textcolor{white}{x}&
+      \textcolor{kit-green100}{
+        T. Etzion, A. Trachtenberg, and A. Vardy, ``Which codes have cycle-free Tanner graphs?,'' \emph{TIT}, 1999.
+      }
+      }
+    \end{tabular}
+  }
+  
+   
+    % \addreferences
+    % {CRSS98}{A.~R. Calderbank, E.~M. Rains, P.~W. Shor, and N.~J.~A. Sloane, ``Quantum error correction via codes over \textit{{GF}(4)},'' \emph{TIT}, 1998.}
+    % {ETV}{T. Etzion, A. Trachtenberg, and A. Vardy, ``Which codes have cycle-free Tanner graphs?,'' \emph{TIT}, 1999.}
+    % \endreferences
+\end{frame}
+
+\begin{frame}[c]{Existing Solutions}
+    \setbeamercovered{transparent}
+    \onslide<1>{
+        \begin{columns}
+            \begin{column}{0.2\textwidth}
+                \[
+                    \bS =
+                    \begin{pmatrix}
+                        \Xf \bH_X\\
+                        \Zf \bH_Z
+                    \end{pmatrix}
+                \]
+
+                \[
+                    \bH_X \bH_Z^{\mathsf{T}}
+                    \overset{\begin{subarray}{c} \text{mod $2$}\end{subarray}}{=}
+                    \bm{0}
+                \]
+            \end{column}
+    
+            \begin{column}{0.8\textwidth}
+                \begin{itemize}
+                    \item \schlagwort{Binary BP (BP2)} decoding of $\X$ and $\Z$ errors separately
+                    \begin{itemize}
+                        \item Possible to construct QLDPC codes whose Tanner graphs of $\bH_X$ and $\bH_Z$ are good for BP decoding
+                        \item \schlagwort{Suboptimal} for depolarizing channel
+                    \end{itemize}
+                    \vspace{1em}
+                    \item \schlagwort{BP decoder optimization} for codes with detrimental structures
+                    \begin{itemize}
+                        \item E.g., see~\citereference{PC08},\citereference{RWBC20},\citereference{DMS22},\citereference{MSLS25}$\ldots$
+                        \item Problem: \schlagwort{not universal, complexity $\uparrow$, latency $\uparrow$}
+                    \end{itemize}
+                \end{itemize}
+            \end{column}
+        \end{columns}}
+    \bigskip
+    \only<1>{
+        \vspace{2em}
+        \vspace{1ex}
+    }
+    \only<2>{
+        \vspace{-1.3cm}
+        \begin{columns}
+            \begin{column}{0.75\textwidth}
+                \vspace{1cm}
+                \begin{itemize}
+                    \item Can we construct codes with 4-cycles that are not harmful for decoding? \\%\textcolor{red}{ALESSIO: maybe you can add the Ref [CAMEL] also in this slide?} \\
+                    \item Yes, with \schlagwort{CAMEL}~\citereference{CAMEL}
+                \end{itemize}
+            \end{column}
+            \begin{column}{0.25\textwidth}
+                \centering
+                \includegraphics[width=2cm]{figures/camel.pdf}
+            \end{column}
+        \end{columns}
+    }
+    \bigskip
+    
+\onslide<1>{
+  % \noindent\hspace*{-0.35cm}%
+  {\scriptsize
+    \renewcommand{\arraystretch}{1}
+    \begin{tabular}{@{}l p{0.9\textwidth}@{}}
+      \textcolor{kit-green100}{[PC08]} &
+      \textcolor{kit-green100}{
+        D.~Poulin and Y.~Chung,
+        ``On the iterative decoding of sparse quantum codes,''
+        \emph{Quantum Information and Computation}, 2008.
+      }\\
+
+      \textcolor{kit-green100}{[RWBC20]} &
+      \textcolor{kit-green100}{
+        J.~Roffe, D.~R. White, S.~Burton, and E.~Campbell,
+        ``Decoding across the quantum low-density parity-check code landscape,''
+        \emph{Physical Review Research}, 2020.
+      }\\
+
+      \textcolor{kit-green100}{[DMS22]} &
+      \textcolor{kit-green100}{
+        J.~Du~Crest, M.~Mhalla, and V.~Savin,
+        ``Stabilizer inactivation for message-passing decoding of quantum
+        {LDPC} codes,'' in \emph{Proc. ITW}, 2022.
+      }\\
+
+      \textcolor{kit-green100}{[MSLS25]} &
+      \textcolor{kit-green100}{
+        S.~Miao, A.~Schnerring, H.~Li, and L.~Schmalen,
+        ``Quaternary neural belief propagation decoding of quantum {LDPC}
+        codes with overcomplete check matrices,''
+        \emph{IEEE Access},~2025.
+      }
+    \end{tabular}
+  }
+}
+
+\onslide<2>{
+  % \noindent\hspace*{-0.35cm}%
+  {\scriptsize
+    \renewcommand{\arraystretch}{1}
+    \begin{tabular}{@{}l p{0.9\textwidth}@{}}
+      \textcolor{kit-green100}{[CAMEL]} \textcolor{white}{x}&
+      \textcolor{kit-green100}{
+        S.~Miao, J.~Mandelbaum, H.~J\"akel, and L.~Schmalen,
+        ``A joint code and belief propagation decoder design for quantum
+        {LDPC} codes,'' in \emph{Proc.~ISIT}, 2024.
+      }
+    \end{tabular}
+  }
+}
+
+
+\end{frame}
+
+\begin{frame}[c]{CAMEL: Code Design}
+    \begin{itemize}
+        \item The key step in designing QLDPC codes is to find the two matrices $\bH_X\in \mathbb{F}_{2}^{m_1\times n}$ and $\bH_Z\in \mathbb{F}_{2}^{m_2\times n}$ such that
+        \[
+            \bH_X \bH_Z^{\mathsf{T}} = \bm{0}_{m_1\times m_2}
+        \]
+        \item \schlagwort{CAMEL Ansatz}: We take a \schlagwort{detour} to construct $\bH_1\in \mathbb{F}_{2}^{m_1\times (n-1)}$ and $\bH_2\in \mathbb{F}_{2}^{m_2\times (n-1)}$ such that
+        \[
+            \bH_1 \bH_2^{\mathsf{T}} = \bm{1}_{m_1\times m_2}
+        \]
+        \item Then, we let
+        \[
+            \bH_X = \left ( \bH_1 \vert \bm{1}_{m_1\times 1} \right)
+            \;\;\;\;\;\text{and}\;\;\;\;\;
+            \bH_Z = \left ( \bH_2 \vert \bm{1}_{m_2\times 1} \right).
+        \]
+        Then
+        \[
+            \bH_X \bH_Z^{\mathsf{T}} =
+            \begin{pmatrix}
+                \bH_1 & \bm{1}_{m_1\times 1}
+            \end{pmatrix}
+            \begin{pmatrix}
+                \bH_2^{\mathsf{T}} \\ \bm{1}_{1\times m_2}
+            \end{pmatrix}
+            =
+            \bH_1 \bH_2^{\mathsf{T}} + \bm{1}_{m_1\times m_2}
+            =
+            \bm{0}_{m_1\times m_2}
+        \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[c]{CAMEL: Code Design}
+    \bigskip
+    \bigskip
+    \begin{columns}
+        \begin{column}{0.3\textwidth}
+            \begin{equation}\label{eq:eq1}
+                \bH_1 \bH_2^{\mathsf{T}} = \bm{1}_{m_1\times m_2}
+            \end{equation}
+
+            \[
+                \bS' =
+                \begin{pmatrix}
+                    \Xf \bH_1\\
+                    \Zf \bH_2
+                \end{pmatrix}
+            \]
+
+            \[
+                \bS =
+                \begin{pmatrix}
+                    \Xf \bH_X\\
+                    \Zf \bH_Z
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                    \Xf \bH_1 & \Xf \bm{1}\\
+                    \Zf \bH_2 & \Zf \bm{1}
+                \end{pmatrix}
+            \]
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            \begin{itemize}
+                \item Ensure no 4-cycles in the Tanner graph associated with $\bS'$
+                \bigskip
+                \item All cycles of length 4 are \schlagwort{assembled in the last column}
+                \bigskip
+                \item \eqref{eq:eq1} is the starting point of some good classical LDPC code construction methods
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    \bigskip
+    \bigskip
+    \bigskip
+    \bigskip
+
+\end{frame}
+
+
+\begin{frame}[c]{CAMEL: Ensemble Decoding}
+	\begin{columns}
+		\begin{column}{0.55\textwidth}
+			\begin{itemize}
+				\item \schlagwort{4 parallel paths} for the 4 types of Pauli errors
+				
+				\item Each path fed a \schlagwort{hard-guess} of $\mathsf{v}_n$, $P(\mathsf{v}_n = \eta)=1, \eta \in \mathrm{GF}(4)$
+				
+				 $\rightarrow$ $\mathsf{v}_n$ is virtually removed in each BP decoding\\
+				 
+				 $\rightarrow$ Decoding over the Tanner graph of $\bm{S}'$
+				
+				\item Each path responsible for one type of error patterns, e.g., 
+				\[\hat{\bm{e}}_2 = \begin{pmatrix}
+					e_1&e_2&\ldots& e_{n-1}&\omega
+				\end{pmatrix},\] 
+				where $e_i\in \mathrm{GF}(4)$, $ \forall i \in \{1,2,\ldots, n-1\}$
+			\end{itemize}
+		
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\input{Figures/block_diagramm}
+		\end{column}
+	\end{columns}
+
+	\begin{columns}
+	\begin{column}{0.85\textwidth}
+
+		\begin{itemize}
+			\item Together, CAMEL (\textbf{C}ycle \textbf{A}ssembling and \textbf{M}itigating \textbf{E}nsemb\textbf{L}e decoding)
+                            \bigskip
+                            \pause
+                \item In previous work, quasi-cyclic CAMEL codes have been presented~\citereference{CAMEL}
+                \item \schlagwort{This work:} CAMEL codes with dyadic matrices
+		\end{itemize}
+		
+	\end{column}
+	\begin{column}{0.15\textwidth}
+		
+	\end{column}
+\end{columns}
+
+    \vspace{1em}
+    
+    \addreferences
+    {CAMEL}{S.~Miao, J.~Mandelbaum, H.~J\"akel, and L.~Schmalen, ``A joint code and belief propagation decoder design for quantum {LDPC} codes,'' in \emph{Proc.~ISIT},~2024.}
+    \endreferences
+\end{frame}
+
+
+\begin{frame}[c]{Ring of Dyadic Matrices}
+  \begingroup
+  \setlength{\arraycolsep}{1.1pt}
+  \renewcommand{\arraystretch}{0.82}
+
+  \begin{itemize}
+    \item Start from $\mathcal{M}_0(\Ftwo)=\Ftwo$ and recursively define the \schlagwort{ring of dyadic matrices}
+    \[
+      \mathcal{M}_{\ell}(\Ftwo)=
+      \left\{
+        \begin{pmatrix}
+          \dyadicAblock{\bA} & \dyadicBblock{\bB}\\
+          \dyadicBblock{\bB} & \dyadicAblock{\bA}
+        \end{pmatrix}
+        :\,
+        \dyadicAblock{\bA},\dyadicBblock{\bB}\in\mathcal{M}_{\ell-1}(\Ftwo)
+      \right\}.
+    \]
+\pause
+\vspace{-1em}
+    \item Example:
+  \begin{align*}
+    \mathcal{M}_0(\Ftwo)&=
+    \scriptsize  \left\{0, 1\right\}\\[0.3cm]
+    \mathcal{M}_1(\Ftwo)&=
+      \left\{\scriptsize
+      \begin{pmatrix}\dyadicAblock{0}&\dyadicBblock{0}\\ \dyadicBblock{0}&\dyadicAblock{0}\end{pmatrix},
+      \begin{pmatrix}\dyadicAblock{1}&\dyadicBblock{1}\\ \dyadicBblock{1}&\dyadicAblock{1}\end{pmatrix},
+      \begin{pmatrix}\dyadicAblock{0}&\dyadicBblock{1}\\ \dyadicBblock{1}&\dyadicAblock{0}\end{pmatrix},
+      \begin{pmatrix}\dyadicAblock{1}&\dyadicBblock{0}\\ \dyadicBblock{0}&\dyadicAblock{1}\end{pmatrix}
+      \right\}\\[0.3cm]
+    \mathcal{M}_2(\Ftwo)&=
+      \vcenter{$
+      \left\{\scriptsize
+      \begin{array}{@{}cccccccc@{}}
+        \dyadicfour{0}{0}{0}{0}, &
+        \dyadicfour{0}{0}{1}{1}, &
+        \dyadicfour{0}{0}{0}{1}, &
+        \dyadicfour{0}{0}{1}{0}, &
+        \dyadicfour{1}{1}{0}{0}, &
+        \dyadicfour{1}{1}{1}{1}, &
+        \dyadicfour{1}{1}{0}{1}, &
+        \dyadicfour{1}{1}{1}{0},\\[0.6cm]
+        \dyadicfour{0}{1}{0}{0}, &
+        \dyadicfour{0}{1}{1}{1}, &
+        \dyadicfour{0}{1}{0}{1}, &
+        \dyadicfour{0}{1}{1}{0}, &
+        \dyadicfour{1}{0}{0}{0}, &
+        \dyadicfour{1}{0}{1}{1}, &
+        \dyadicfour{1}{0}{0}{1}, &
+        \dyadicfour{1}{0}{1}{0}\textcolor{white}{,}
+      \end{array}
+      \right\}
+      $}\\
+    \vdots
+  \end{align*}
+\pause
+\vspace{-1em}
+      \item Each dyadic matrix is fully determined by its first row, denoted as \schlagwort{signature}
+%      \begin{itemize}
+%        \item Addition $\bM(\bm{a})+\bM(\bm{b})=\bM(\bm{a}+\bm{b})$
+%        \item Multiplication $\bM(\bm{a})+\bM(\bm{b})=\bM(\bm{a}+\bm{b})$
+%      \end{itemize}
+
+
+
+  \end{itemize}
+
+  \endgroup
+\end{frame}
+
+\begin{frame}[c]{Dyadic Permutation Matrices (DPMs)}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.95\textwidth}
+
+      \begin{itemize}
+        \item \schlagwort{Signatures of weight $1$} give \schlagwort{dyadic permutation matrices (DPMs)} which form a \schlagwort{multiplicative group}
+      \[
+        \mathcal{D}_{\ell}(\Ftwo)
+        =\{\bD^{(0)}=\bI,\bD^{(1)},\ldots,\bD^{(2^\ell-1)}\}
+        \subseteq \mathcal{M}_{\ell}(\Ftwo)
+      \]
+      
+        \vspace{2em}
+        
+        \item Using the properties of the DPMs, we can show that the set of DPMs is \schlagwort{isomorphic to the additive group of $\mathbb{F}_{2^{\ell}}$}, with
+        \[
+          \bD^{(\psi(i))}\bD^{(\psi(j))}=\bD^{(\psi(i) +  \psi(j))}, \quad i,j\in \mathbb{F}_{2^{\ell}}
+        \]
+        where $\psi: \mathbb{F}_{2^{\ell}}\mapsto \{0,1,\ldots, 2^{\ell}-1\}$ is a bijective mapping
+        
+ \vspace{2em}
+ \pause
+        \item \schlagwort{Quasi-dyadic (QD)} matrices consist of blocks of DPMs
+
+      \end{itemize}
+
+
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[c]{Quasi-dyadic Parity-Check Matrix}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.65\textwidth}
+      \small
+      \begin{itemize}
+
+        \item A quasi-dyadic (QD) PCM is defined by \schlagwort{exponent matrix}~\citereference{BBS25}
+
+        \[
+          \bP=(p_{i,j})\in\Fq^{w\times N}
+        \]
+
+        \item \schlagwort{Lifting} replaces each element $p_{i,j} \in \mathbb{F}_{2^{\ell}}$ by its DPM $\bD^{(\psi(p_{i,j}))}$
+
+          \[
+            \bH=
+            \begin{pmatrix}
+              \bD^{(\psi(p_{0,0}))} & \cdots & \bD^{(\psi(p_{0,N-1}))}\\
+              \vdots & \ddots & \vdots\\
+              \bD^{(\psi(p_{w-1,0}))} & \cdots & \bD^{(\psi(p_{w-1,N-1}))}
+            \end{pmatrix}\in\Ftwo^{w2^\ell\times N2^\ell}
+          \]
+
+       \end{itemize}
+      \end{column}
+      \begin{column}{0.35\textwidth}
+      \vspace{2cm}
+      \centering
+      \includegraphics[width=\linewidth,height=0.52\textheight,keepaspectratio]{figures/Hx_spy2.pdf}
+    \end{column}
+  \end{columns}
+  \pause
+  \vspace{0.5cm}
+  \begin{itemize}
+    \item The lifted PCM $\bH$ contains a $4$-cycle from the blocks $\bD^{\psi(p_{i_1,j_1})}$, $\bD^{\psi{(p_{i_1,j_2})}}$, $\bD^{\psi{(p_{i_2,j_2}})}$, and $\bD^{\psi{(p_{i_2,j_1})}}$ iff~\citereference{BBS25}
+    \[p_{i_1,j_1} + p_{i_2,j_1} = p_{i_2,j_2} + p_{i_1,j_2}, \quad i_1\neq i_2, j_1\neq j_2\]
+  \end{itemize}
+  \vspace{0.4cm}
+  \addreferences
+    {BBS25}{A.~Baldelli, M.~Battaglioni, and P.~Santini, ``Quantum {CSS} {LDPC} codes with quasi-dyadic structure,'' in \emph{Proc. ISTC}, 2025.}
+  \endreferences
+\end{frame}
+
+\begin{frame}[c]{Dyadic CAMEL Codes: Girth-6 Components}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{\textwidth}
+      \begin{itemize}
+        \item We now first construct QD component matrices \(\bH\)
+        of girth $6$
+      \end{itemize}
+        \begin{center}
+          \begin{minipage}{0.89\textwidth}
+            \begin{beamerboxesrounded}[upper=color_upper,lower=color_lower,width=\linewidth]{\textbf{Girth $6$ condition for QD matrices}}
+              Let $\bP\in\Fq^{w\times 2^\ell}$ be generated by
+              \[
+                p_{u,j}=a_u\lambda_j+b_u
+              \]
+              where the multipliers $a_u\in\Fq\backslash\{0\}$ are all distinct and $\lambda_j = \psi^{-1} (j)$. Then, the QD matrix lifted from $\bP$ has girth at least $6$.
+            \end{beamerboxesrounded}
+          \end{minipage}
+        \end{center}
+
+        \begin{itemize}
+          \item Proof idea
+          \begin{itemize}
+            \item Property of DPMs
+            \[ \bD^{\psi(i)}\bD^{\psi(j)}=\bD^{\psi(i + j)}\]
+            \item If all multipliers $a_u$ are distinct, then the product of two DPMs $\bD^{\psi(p_{u,j})}\bD^{\psi(p_{v,j})}=\bD^{\psi(p_{u,j} + p_{v,j})}$ depends on
+            \[
+              p_{u,j}+p_{v,j}
+              =(a_u+a_v)\lambda_j+(b_u+b_v),
+            \]
+            which is a permutation of $\Fq$.
+
+          \end{itemize}
+
+        \end{itemize}
+
+
+
+%      \begin{itemize}
+%        \item Use the same affine-row design for both components:
+%        \[
+%          p^{(M)}_{u,j}
+%          =a^{(M)}_u\lambda_j+b^{(M)}_u,
+%          \qquad M\in\{1,2\}.
+%        \]
+%
+%        \item Distinct $a_u,a_v$ imply $a_u+a_v\neq 0$.
+%        \item Thus every row pair sees each XOR difference at most once.
+%        \item A $4$-cycle would require a repeated row-pair difference.
+%      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[c]{Dyadic CAMEL Codes: CSS Construction}
+
+
+  \begin{itemize}
+    \item Start from $\bP\in\Fq^{w\times 2^\ell}$ generated by \(p_{u,j}=a_u\lambda_j+b_u\)
+    \item Lift $\bP$ to QD PCM $\bH \in \mathbb{F}_2^{w 2^{\ell} \times 2^{2\ell}}$
+    \item Perform partitioning
+    \[\bH =: \begin{pmatrix} \bH_1 \\ \bH_2
+    \end{pmatrix}\]
+
+    \item Both $ \bH_1 $ and $ \bH_2 $ have girth at least 6 and
+    \[ \bH_1\bH_2^\top=\bone .\]
+
+    \item Append the all-one column to obtain the CSS matrices $\bH_X,\bH_Z$
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[c]{Constructed Codes}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.95\textwidth}
+      \begin{itemize}
+        \item Let $w=3$, $\ell=3$, and work over
+        \(
+          \mathbb{F}_8=\mathbb{F}_2[x]/\langle x^3+x+1\rangle.
+        \)
+        Construct the exponent matrix
+      \[
+      \bP=
+      \begin{pmatrix}
+      1 & \alpha^3 & \alpha^6 & \alpha^5 & \alpha & 0 & \alpha^4 & \alpha^2 \\
+      \alpha^2 & 0 & \alpha^5 & \alpha^3 & \alpha & \alpha^4 & 1 & \alpha^6 \\
+      \alpha^4 & 0 & 1 & \alpha^5 & \alpha^3 & \alpha^6 & \alpha^2 & \alpha\\
+      \hline
+      \alpha & \alpha^3 & 0 & 1 & \alpha^4 & \alpha^5 & \alpha^2 & \alpha^6 \\
+      \alpha^6 & \alpha^4 & \alpha^3 & 0 & \alpha & 1 & \alpha^2 & \alpha^5 \\
+      1 & \alpha^2 & 0 & \alpha^6 & \alpha^3 & \alpha^4 & \alpha & \alpha^5
+      \end{pmatrix}
+      \]
+
+    \item Use $\ell\in\{4,5\}$, i.e., fields $\mathbb{F}_{16}$ and $\mathbb{F}_{32}$, and construct the codes
+
+        \vspace{0.2cm}
+      \centering
+      \small
+      \begin{tabular}{ccccccc}
+        \toprule
+        Code & $n$ & $k$ & $R_Q$ & $\ell$ & $d_{\mathsf{c}}'$ & $d_{\mathsf{v}}'$\\
+        \midrule
+        D1 & 257 & 121 & 0.47 & 4 & 16 & 7\\
+        D2 & 1025 & 583 & 0.57 & 5 & 32 & 15\\
+        \bottomrule
+      \end{tabular}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%\begin{frame}[c]{Constructed Codes}
+%  \begin{columns}[T,onlytextwidth]
+%    \begin{column}{0.48\textwidth}
+%      \begin{itemize}
+%        \item Use $\ell\in\{4,5\}$, i.e., fields $\mathbb{F}_{16}$ and $\mathbb{F}_{32}$.
+%        \item Split the nonzero field elements into disjoint multiplier sets:
+%        \[
+%          |\mathcal{A}_X|=|\mathcal{A}_Z|=2^{\ell-1}-1 .
+%        \]
+%        \item Set $b=0$, lift by DPMs, then append the all-one column:
+%        \[
+%          n=2^{2\ell}+1 .
+%        \]
+%        \item Use overcomplete $\bH_X,\bH_Z$ for improved BP decoding.
+%      \end{itemize}
+%    \end{column}
+%    \begin{column}{0.47\textwidth}
+%      \centering
+%      \small
+%      \begin{tabular}{ccccccc}
+%      \toprule
+%      Code & $n$ & $k$ & $R_Q$ & $\ell$ & $d_{\mathsf{c}}'$ & $d_{\mathsf{v}}'$\\
+%      \midrule
+%      D1 & 257 & 121 & 0.47 & 4 & 16 & 7\\
+%      D2 & 1025 & 583 & 0.57 & 5 & 32 & 15\\
+%      \bottomrule
+%      \end{tabular}
+%
+%      \vspace{0.45cm}
+%      \begin{beamerboxesrounded}[upper=color_upper,lower=color_lower,width=0.93\textwidth]{Rate note}
+%        \footnotesize The achieved rates are larger than the simple lower bound because the component check matrices are overcomplete.
+%      \end{beamerboxesrounded}
+%    \end{column}
+%  \end{columns}
+%\end{frame}
+
+\begin{frame}[c]{Simulation Setup}
+  \begin{itemize}
+    \item \schlagwort{Depolarizing channel} with error probability $p$
+    \item \schlagwort{Sum-product BP} using a \schlagwort{flooding schedule} with 15 iterations
+    \item Each point simulated until 100 logical errors are detected
+    \item Compare the following decoders
+  \end{itemize}
+
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.05\textwidth}
+      \textcolor{white}{xxxx}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \begin{minipage}[c][2.9cm][c]{\linewidth}
+        \begin{itemize}
+          \item<2-> plain \BPfour{} decoding
+          \item<3-> CAMEL decoding
+          \item<4-> genie-aided decoding
+        \end{itemize}
+      \end{minipage}
+
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{minipage}[c][2.9cm][c]{\linewidth}
+      \centering
+      \visible<3->{\resizebox{\linewidth}{!}{\input{figures/block}}}
+      \end{minipage}
+    \end{column}
+
+    \begin{column}{0.25\textwidth}
+      \textcolor{white}{xxxx}
+    \end{column}
+
+  \end{columns}
+\end{frame}
+
+\begin{frame}[c]{Numerical Results: D1 Code}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \visible<2->{\resizebox{0.98\textwidth}{!}{\input{figures/FER_D1}}}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{tabular}{cccl}
+        \toprule
+        Code & $n$ & $k$ & Decoder\\
+        \midrule
+        D1 & 257 & 121 & CAMEL\\
+        C1~\citereference{CAMEL} & 290 & 128 & CAMEL\\
+        H1~\citereference{TZ13} & 400 & 16 & BP+OSD~\citereference{RWBC20}\\
+        \bottomrule
+      \end{tabular}
+
+      \visible<2->{%
+      \vspace{0.5cm}
+      \begin{itemize}
+        \item Plain \BPfour{} shows an error floor
+        \visible<3->{%
+        \item CAMEL suppresses the floor \visible<4->{and matches genie-aided \BPfour}
+        }
+        \visible<4->{%
+        \item D1 with CAMEL outperforms C1 and H1 despite higher rate and shorter block length
+        }
+      \end{itemize}
+      }
+    \end{column}
+  \end{columns}
+  \vspace{0.4cm}
+
+  \noindent\hspace*{-0.35cm}%
+  {\scriptsize
+  \renewcommand{\arraystretch}{1}
+    \begin{tabular}{lp{0.93\textwidth}}
+      \textcolor{kit-green100}{[TZ13]} &
+      \textcolor{kit-green100}{J.-P.~Tillich and G.~Z\'emor, ``Quantum {LDPC} codes with positive rate and minimum distance proportional to $\sqrt{n}$,'' \emph{TIT}, 2013.}\\
+      \textcolor{kit-green100}{[RWBC20]} &
+      \textcolor{kit-green100}{J.~Roffe, D.~R. White, S.~Burton, and E.~Campbell, ``Decoding across the quantum low-density parity-check code landscape,'' \emph{Physical Review Research}, 2020.}
+    \end{tabular}
+  }
+
+%  \addreferences
+%%  {CAMEL}{S.~Miao, J.~Mandelbaum, H.~J\"akel, and L.~Schmalen, ``A joint code and belief propagation decoder design for quantum {LDPC} codes,'' in \emph{Proc. IEEE Int. Symp. Inform. Theory (ISIT)}, Athens, Greece, Jul.~2024.}
+%  {TZ13}{J.-P.~Tillich and G.~Z\'emor, ``Quantum {LDPC} codes with positive rate and minimum distance proportional to the square root of the blocklength,'' \emph{IEEE Trans. Inf. Theory}, 2013.}
+%  {RWBC20}{J.~Roffe, D.~R. White, S.~Burton, and E.~Campbell, ``Decoding across the quantum low-density parity-check code landscape,'' \emph{Physical Review Research}, 2020.}
+%  \endreferences
+\end{frame}
+
+\begin{frame}[c]{Numerical Results: D2 Code}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \resizebox{0.98\textwidth}{!}{\input{figures/FER_codes_from_theorem2}}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      {
+      \begin{tabular}{cccl}
+        \toprule
+        Code & $n$ & $k$ & Decoder\\
+        \midrule
+        D2 & 1025 & 583 & CAMEL\\
+        C2~\citereference{CAMEL} & 962 & 540 & CAMEL\\
+        E5~\citereference{CAMEL} & 1057 & 571 & CAMEL\\
+        B1~\citereference{MM04} & 800 & 400 & BP+enhanced \\
+        &&&Feedback~\citereference{WSBW12}\\
+        \bottomrule
+      \end{tabular}
+      }
+
+
+      \begin{itemize}
+        \item Plain \BPfour{} already has a strong waterfall and no observable error floor
+        \item Performance is comparable to E5 and B1, while D2 has higher rate than both
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vspace{0.4cm}
+  {\scriptsize
+    \renewcommand{\arraystretch}{1}
+    \begin{tabular}{lp{0.93\textwidth}}
+      \textcolor{kit-green100}{[MM04]} &
+      \textcolor{kit-green100}{D.~J.~C. MacKay, G.~Mitchison, and P.~L. McFadden, ``Sparse-graph codes for quantum error correction,'' \emph{TIT}, 2004.}\\
+      \textcolor{kit-green100}{[WSBW12]} &
+      \textcolor{kit-green100}{Y.-J.~Wang, B.~C. Sanders, B.-M.~Bai, and X.-M.~Wang, ``Enhanced feedback iterative decoding of sparse quantum codes,'' \emph{TIT}, 2012.}
+    \end{tabular}
+  }
+\end{frame}
+
+\begin{frame}[c]{Conclusion}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.85\textwidth}
+      \small
+      \begin{itemize}
+        \item \schlagwort{CAMEL} framework provides a way to construct \schlagwort{BP-suitable QLDPC codes}
+        \item \schlagwort{Quasi-dyadic codes} are an interesting code family with \schlagwort{rich algebraic structure}
+        \item Constructed quasi-dyadic codes provide \schlagwort{competitive performance} at high coding rates
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.1\textwidth}
+      \centering
+      \vspace{0.1cm}
+      \includegraphics[width=\linewidth]{figures/camel.pdf}
+    \end{column}
+  \end{columns}
+
+  \vspace{2cm}
+  \begin{center}
+    {\Huge\bfseries\textcolor{kit-green100}{Questions?}}
+  \end{center}
+  \vspace{-0.02cm}
+
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.17\textwidth}
+      \centering
+      \includegraphics[width=0.78\linewidth]{\templates/logos/LOGO_ERC-FLAG_EU.pdf}
+    \end{column}
+    \begin{column}{0.15\textwidth}
+      \centering
+      \includegraphics[width=0.62\linewidth]{\templates/logos/BMFTR_en_crop.pdf}
+    \end{column}
+    \begin{column}{0.64\textwidth}
+      \scriptsize Funding: European Research Council (ERC), European Union's Horizon 2020 research and innovation programme, grant agreement No. 101001899; German Federal Ministry of Research, Technology and Space (BMFTR), Open6GHub+, grant agreement 16KIS2405.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\appendix
+
+
+
+
+\begin{frame}[c,noframenumbering]{Backup: DPM Product Example}
+  \begingroup
+  \setlength{\arraycolsep}{1.25pt}
+  \renewcommand{\arraystretch}{0.76}
+
+
+  In $\mathbb{F}_8=\Ftwo[\alpha]/\langle\alpha^3+\alpha+1\rangle$ with basis $\{1,\alpha,\alpha^2\}$:
+  \[
+    \begin{aligned}
+      a&=\alpha+\alpha^2, & \psi(a)&=6, & \varphi(a)&=\begin{pmatrix}1&1&0\end{pmatrix}\\
+      b&=\alpha^2, & \psi(b)&=4, & \varphi(b)&=\begin{pmatrix}1&0&0\end{pmatrix}\\
+      a+b&=\alpha, & \psi(a+b)&=2, & \varphi(a+b)&=\begin{pmatrix}0&1&0\end{pmatrix}
+    \end{aligned}
+  \]
+  \vspace{-0.28cm}
+  \[
+    6\oplus4=2,
+    \qquad
+    \bD^{(6)}\bD^{(4)}=\bD^{(2)}
+  \]
+  \vspace{-0.22cm}
+
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \centering
+      {$\bD^{(6)}\bD^{(4)}$}
+      \vspace{-0.18cm}
+
+      {
+      \[
+        \DtwoExampleMatrix
+      \]
+      }
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      { $\bD^{(2)}$}
+      \vspace{-0.18cm}
+
+      {
+      \[
+        \DtwoExampleMatrix
+      \]
+      }
+    \end{column}
+  \end{columns}
+  \endgroup
+\end{frame}
+
+
+
+\end{document}

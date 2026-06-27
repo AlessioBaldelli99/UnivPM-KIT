@@ -1,0 +1,117 @@
+%		\tikzset{line/.style={-latex},
+%      branch highlight/.style={draw=KITpalegreen!45,line width=7pt,line cap=round,line join=round}}
+%		\begin{tikzpicture}
+%    \node[draw=none] at (0,3.2) {\footnotesize$\bm{z}$};
+%    \node[draw,circle,fill,inner sep=1pt] at (0.3,3)(s) {};
+%    \node[draw,circle,fill,inner sep=1pt] at (0.3,3.3) (s1){};
+%    \node[draw,circle,fill,inner sep=1pt] at (0.3,2.7) (s2) {};
+%
+%    \draw[very thick] (-0.2,3) -- (s);
+%
+%    \only<4->{\draw[branch highlight] (s1) |- (2,3.9);}
+%    \alt<4->{\draw[very thick,fill=KITpalegreen!30] (2,3.7) rectangle ++(1,0.4);}{\draw[very thick] (2,3.7) rectangle ++(1,0.4);}
+%    \node[draw=none] at (1,4.1) {\footnotesize $\mathsf{v}_n=0$};
+%    \node[draw=none] at (2.5,3.9)(BP1) {\footnotesize BP};
+%    \draw[line, very thick] (s1) |- (2,3.9);
+%
+%    \draw[very thick] (2,3.1) rectangle ++(1,0.4);
+%    \node[draw=none] at (1,3.5) {\footnotesize $\mathsf{v}_n=1$};
+%    \node[draw=none] at (2.5,3.3)(BP2) {\footnotesize BP};
+%    \draw[line, very thick] (s) |- (2,3.3);
+%
+%    \draw[very thick] (2,2.5) rectangle ++(1,0.4);
+%    \node[draw=none] at (1,2.9) {\footnotesize $\mathsf{v}_n=\omega$};
+%    \node[draw=none] at (2.5,2.7)(BP3) {\footnotesize BP};
+%    \draw[line, very thick] (s) |- (2,2.7);
+%    \draw[very thick] (2,1.9) rectangle ++(1,0.4);
+%    \node[draw=none] at (1,2.3) {\footnotesize $\mathsf{v}_n=\bar{\omega}$};
+%    \node[draw=none] at (2.5,2.1)(BP4) {\footnotesize BP};
+%    \draw[line,very thick] (s2) |- (2,2.1);
+%
+%    \node[draw,rectangle,text width=0.4cm, minimum height=1cm,align=center,very thick] at (4.5,3)(w) {\footnotesize ML};
+%
+%    \node[draw=none] at (3.5,4.1) {\footnotesize $\hat{\bm{e}}_0$};
+%    \node[draw=none] at (3.5,3.5) {\footnotesize $\hat{\bm{e}}_1$};
+%    \node[draw=none] at (3.5,2.9) {\footnotesize $\hat{\bm{e}}_2$};
+%    \node[draw=none] at (3.5,2.3) {\footnotesize $\hat{\bm{e}}_3$};
+%
+%    \only<4->{\draw[branch highlight] (3,3.9) -| (w);}
+%    \draw[line, very thick] (3,3.9) -| (w);
+%    \draw[line, very thick] (3,3.3) -- (4.2,3.3);
+%    \draw[line, very thick] (3,2.7) -- (4.2,2.7);
+%    \draw[line, very thick] (3,2.1) -| (w);
+%
+%     \node[draw=none] at (5.5,3.2) {\footnotesize$\hat{\bm{e}}$};
+%     \draw[line, very thick] (w) -- (6,3);
+%     \end{tikzpicture}
+
+
+\tikzset{
+  line/.style={-{Latex}, very thick},
+  active line/.style={-{Latex}, very thick, draw=KITpalegreen!70!black},
+  bp/.style={very thick},
+  bp active/.style={very thick, draw=KITpalegreen!70!black, fill=KITpalegreen!30}
+}
+
+\begin{tikzpicture}
+    % Left input
+    \node[draw=none] at (0,3.2) {\footnotesize$\bm{z}$};
+    \node[draw,circle,fill,inner sep=1pt] at (0.3,3)   (s)  {};
+    \node[draw,circle,fill,inner sep=1pt] at (0.3,3.3) (s1) {};
+    \node[draw,circle,fill,inner sep=1pt] at (0.3,2.7) (s2) {};
+
+    \draw[very thick] (-0.2,3) -- (s);
+
+    % BP blocks
+    \alt<4->{\draw[bp active] (2,3.7) rectangle ++(1,0.4);}
+            {\draw[bp]        (2,3.7) rectangle ++(1,0.4);}
+    \draw[bp] (2,3.1) rectangle ++(1,0.4);
+    \draw[bp] (2,2.5) rectangle ++(1,0.4);
+    \draw[bp] (2,1.9) rectangle ++(1,0.4);
+
+    % Labels for branches
+    \node[draw=none] at (1,4.1) {\footnotesize $\mathsf{v}_n=0$};
+    \node[draw=none] at (1,3.5) {\footnotesize $\mathsf{v}_n=1$};
+    \node[draw=none] at (1,2.9) {\footnotesize $\mathsf{v}_n=\omega$};
+    \node[draw=none] at (1,2.3) {\footnotesize $\mathsf{v}_n=\bar{\omega}$};
+
+    % BP text
+    \node[draw=none] at (2.5,3.9) (BP1) {\footnotesize BP};
+    \node[draw=none] at (2.5,3.3) (BP2) {\footnotesize BP};
+    \node[draw=none] at (2.5,2.7) (BP3) {\footnotesize BP};
+    \node[draw=none] at (2.5,2.1) (BP4) {\footnotesize BP};
+
+    % Connections from left to BP blocks
+    \alt<4->{\draw[active line] (s1) |- (2,3.9);}
+            {\draw[line]        (s1) |- (2,3.9);}
+    \draw[line] (s)  |- (2,3.3);
+    \draw[line] (s)  |- (2,2.7);
+    \draw[line] (s2) |- (2,2.1);
+
+    % ML block
+    \node[
+        draw,
+        rectangle,
+        text width=0.4cm,
+        minimum height=1cm,
+        align=center,
+        very thick
+    ] at (4.5,3) (w) {\footnotesize ML};
+
+    % Labels between BP and ML
+    \node[draw=none] at (3.5,4.1) {\footnotesize $\hat{\bm{e}}_0$};
+    \node[draw=none] at (3.5,3.5) {\footnotesize $\hat{\bm{e}}_1$};
+    \node[draw=none] at (3.5,2.9) {\footnotesize $\hat{\bm{e}}_2$};
+    \node[draw=none] at (3.5,2.3) {\footnotesize $\hat{\bm{e}}_3$};
+
+    % Connections from BP blocks to ML
+    \alt<4->{\draw[active line] (3,3.9) -| (w);}
+            {\draw[line]        (3,3.9) -| (w);}
+    \draw[line] (3,3.3) -- (4.2,3.3);
+    \draw[line] (3,2.7) -- (4.2,2.7);
+    \draw[line] (3,2.1) -| (w);
+
+    % Output
+    \node[draw=none] at (5.5,3.2) {\footnotesize$\hat{\bm{e}}$};
+    \draw[line] (w) -- (6,3);
+\end{tikzpicture}

@@ -1,0 +1,95 @@
+\begin{tikzpicture}
+\pgfplotsset{grid style={gray!70}}
+\pgfplotsset{every tick label/.append style={font=\footnotesize}}
+\begin{axis}[%
+    scale only axis=true,
+    width=4cm,
+    height=3.5cm,
+    xmin=0.015,
+    xmax=0.15,
+    % xmode=log,
+    ymode=log,
+    ymin=1e-5,
+    ymax=1,
+    yminorticks,
+    axis background/.style={fill=white, mark size=1.5pt},
+    xminorticks,
+    %ymajorgrids,
+    %yminorgrids,
+    xtick={0.015,0.045,...,0.15},
+    x tick label style={
+        /pgf/number format/.cd,
+        % using `fixed relative' would normally work ...
+        fixed relative,
+        precision=3,
+    },
+%    ytick={1,0.1,0.01,0.001,1e-4,1e-5,1e-6,1e-7,1e-8},
+    ylabel={Logical error rate}, xmajorgrids,  ymajorgrids,
+    xlabel={Physical error rate $p$},
+    label style={font=\small},
+    legend cell align={left},
+    legend style={at={(1 ,0)},anchor=south east,fill opacity=1, text opacity = 1,legend columns=1,font=\footnotesize}
+    ]
+
+
+     \addplot [color=myred,line width=1pt,mark=o, mark options={solid,myred, mark size=1.9pt}]table[row sep=crcr]{
+% [[72,2]], 70 checks, 25 iter, ep0=0.1, not trained
+% FE 3061, total dec. 4223\\
+0.15 0.72484\\
+% FE 3058, total dec. 4781\\
+0.135 0.639615\\
+% FE 3041, total dec. 5533\\
+0.12 0.549611\\
+% FE 3028, total dec. 6844\\
+0.105 0.442431\\
+% FE 3026, total dec. 8536\\
+0.09 0.354499\\
+% FE 3010, total dec. 11957\\
+0.075 0.251735\\
+% FE 3018, total dec. 17595\\
+0.06 0.171526\\
+% FE 3006, total dec. 29874\\
+0.045 0.100623\\
+% FE 3004, total dec. 67096\\
+0.03 0.0447717\\
+% FE 1130, total dec. 100000\\
+% FE 2220, total dec. 200000\\
+% FE 3002, total dec. 268603\\
+0.015 0.0111763\\
+    };
+ \addlegendentry{BP4}
+  
+
+  
+  \addplot [color=black, dotted,line width=1.5pt,mark=none]table[row sep=crcr]{
+0.015 0.00017123287671232877\\
+0.031875 0.0020348837209302325\\
+0.04875 0.009116883116883117\\
+0.065625 0.024413793103448277\\
+0.08250000000000002 0.05071428571428571\\
+0.099375 0.098\\
+0.11624999999999999 0.1478\\
+0.13312500000000002 0.201\\
+0.15000000000000002 0.275\\
+  };
+\addlegendentry{MWPM~\citereference{Edm65}}
+
+
+  
+  \addplot [color=black, line width=1pt,mark=none]table[row sep=crcr]{
+0.015 0.029775\\
+0.03 0.0591\\
+0.045 0.087975\\
+0.06 0.1164\\
+0.075 0.14437\\
+0.09 0.1719\\
+0.105 0.19898\\
+0.12 0.2256\\
+0.135 0.25177\\
+0.15 0.2775\\
+  };
+\addlegendentry{uncoded}
+    
+    % \node[draw, fill=white, anchor = south east] at (axis cs:0.15, 1e-5) {\footnotesize $d=6$};
+    \end{axis}
+\end{tikzpicture}  

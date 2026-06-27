@@ -1,0 +1,476 @@
+\tikzset{
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}%
+  },
+  visible on/.style={alt={#1{}{opacity=0}}},
+}
+        \begin{tikzpicture}
+		\pgfplotsset{grid style={dashed, gray}}
+		\pgfplotsset{every tick label/.append style={font=\footnotesize}}
+		
+		\begin{axis}[%
+		xshift=1.5cm,
+		xmin=0.0005,
+		xmax=0.1,
+		ymode=log,
+        xmode = log,
+		ymin=9e-6,
+		ymax=1,
+		yminorticks=true,
+		axis background/.style={fill=white, mark size=1.5pt},
+		xmajorgrids,
+		ymajorgrids,
+		%yminorgrids,
+		width=6.5cm,
+        height=6cm,
+		% xtick={2.5, 2.8,...,5.5},
+		% ytick={0.1,0.01,0.001,1e-4,1e-5,1e-6,1e-7,1e-8, 1e-9,1e-10,1e-11,1e-12,1e-13,1e-14},
+		xlabel={Depolarizing probability $p$},
+		xlabel style={yshift=0.35em},
+		ylabel={LER},
+		label style={font=\small},
+		legend cell align={left},
+		legend style={anchor = north west,  at={(0,1)}, draw=none, fill opacity=0, text opacity = 1,legend columns=1,font=\footnotesize, row sep = 0pt}
+		]
+
+% Plain BP4: visible from overlay 2
+\addplot[
+  color=black,
+  mark=triangle,
+  dashed,
+  mark options={solid},
+  line width=0.5pt,
+  visible on=<2->
+]
+table[row sep=crcr] {
+  0.05 1e-19\\
+};
+\addlegendentry{\visible<2->{Plain BP4}}
+
+% CAMEL decoding: visible from overlay 3
+\addplot[
+  color=black,
+  mark=o,
+  mark options={solid},
+  line width=0.5pt,
+  visible on=<3->
+]
+table[row sep=crcr] {
+  0.05 1e-19\\
+};
+\addlegendentry{\visible<3->{CAMEL decoding}}
+
+
+
+% Genie-aided BP4: visible from overlay 4
+\addplot[
+  color=black,
+  mark=square,
+  dotted,
+  mark options={solid},
+  line width=0.5pt,
+  visible on=<4->
+]
+table[row sep=crcr] {
+  0.05 1e-19\\
+};
+
+\addlegendentry{\visible<4->{Genie-aided BP4}}
+
+% D1 code: visible from overlay 2
+\addplot[
+  color=blue,
+  line width=0.5pt,
+  visible on=<2->
+]
+table[row sep=crcr] {
+  0.05 1e-19\\
+};
+\addlegendentry{\visible<2->{New: D1 code}}
+
+% C1 code: visible from overlay 2
+\addplot[
+  color=KITpalegreen,
+  line width=0.5pt,
+  visible on=<2->
+]
+table[row sep=crcr] {
+  0.05 1e-19\\
+};
+\addlegendentry{\visible<2->{C1 code}}
+
+% H1 code: visible from overlay 2
+\addplot[
+  color=black!50!red,
+  dashed,
+  line width=0.5pt,
+  mark=star,
+  mark options={solid},
+  mark size=2pt,
+  visible on=<2->
+]
+table[row sep=crcr] {
+  0.05 1e-19\\
+};
+\addlegendentry{\visible<2->{H1 code}}
+% %D4 code ========================================================
+% % 65_27 code --> removed from paper
+% \addplot[
+%     mark=o,
+%     color=green!50!blue,
+%     mark=triangle,mark options={solid},dashed,
+%     line width = 0.5pt
+% ]
+% table[row sep=crcr] {
+% % collect 1000 frame errors or 60000000 decoded error patterns
+% % depolarizing prob. list to be simulated: 0.1, 0.05, 0.025, 0.0125, 0.00625, 0.003125, 0.0015625, 0.00078125, 0.000390625, 0.000195313, 
+% % Decoding option: Flooding BP========================
+% % [[65,27]], 48 checks, 15 iter, ep0=0.1
+% % FE 1055, total dec. 1387\\
+% 0.1 0.760634\\
+% % FE 1032, total dec. 3879\\
+% 0.05 0.266048\\
+% % FE 1014, total dec. 12929\\
+% 0.025 0.0784283\\
+% % FE 1013, total dec. 46246\\
+% 0.0125 0.0219046\\
+% % FE 1003, total dec. 157474\\
+% 0.00625 0.00636931\\
+% % FE 1002, total dec. 664080\\
+% 0.003125 0.00150885\\
+% % FE 1001, total dec. 2.46016e+06\\
+% 0.0015625 0.000406884\\
+% % FE 1001, total dec. 9.74861e+06\\
+% 0.00078125 0.000102681\\
+% % FE 244, total dec. 1e+07\\
+% % FE 495, total dec. 2e+07\\
+% % FE 769, total dec. 3e+07\\
+% % FE 1001, total dec. 3.95889e+07\\
+% 0.000390625 2.52849e-05\\
+% % FE 59, total dec. 1e+07\\
+% % FE 123, total dec. 2e+07\\
+% % FE 173, total dec. 3e+07\\
+% % FE 219, total dec. 4e+07\\
+% % FE 289, total dec. 5e+07\\
+% % FE 343, total dec. 6e+07\\
+% % FE 343, total dec. 6.00001e+07\\
+% 0.000195313 5.71666e-06\\
+% };
+
+
+% \addplot[
+%     mark=o,
+%     color=green!50!blue,
+%     mark=o,mark options={solid},
+%     line width = 0.5pt
+% ]
+% table[row sep=crcr] {
+% % collect 1000 frame errors or 60000000 decoded error patterns
+% % depolarizing prob. list to be simulated: 0.1, 0.05, 0.025, 0.0125, 0.00625, 0.003125, 0.0015625, 0.00078125, 0.000390625, 0.000195313, 
+% % Decoding option: CAMEL
+% % [[65,27]], 48 checks, 15 iter, ep0=0.1
+% % FE 1044, total dec. 1444\\
+% 0.1 0.722992\\
+% % FE 1019, total dec. 4003\\
+% 0.05 0.254559\\
+% % FE 1005, total dec. 13782\\
+% 0.025 0.0729212\\
+% % FE 1004, total dec. 49476\\
+% 0.0125 0.0202927\\
+% % FE 1002, total dec. 174768\\
+% 0.00625 0.00573332\\
+% % FE 1001, total dec. 675492\\
+% 0.003125 0.00148188\\
+% % FE 1003, total dec. 2.82248e+06\\
+% 0.0015625 0.000355361\\
+% % FE 924, total dec. 1e+07\\
+% % FE 1001, total dec. 1.08338e+07\\
+% 0.00078125 9.23959e-05\\
+% % FE 1001, total dec. 4.35146e+07\\
+% 0.000390625 2.30038e-05\\
+% % FE 349, total dec. 6.00001e+07\\
+% 0.000195313 5.81666e-06\\
+% };
+% %D4 code ========================================================
+
+%D1 code ========================================================
+\only<3->{%
+\addplot[
+    mark=o,
+color=blue,
+    line width = 0.5pt
+]
+table[row sep=crcr] {
+% collect 100 frame errors or 60000000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.05, 0.025, 0.0125, 0.00625, 0.003125, 0.0015625, 0.00078125, 0.000390625, 0.000195313, 
+% $\llbracket 257,121 \rrbracket$, 224 checks, 15 iter, ep0=0.1
+% FE 487, total dec. 501\\
+0.1 0.972056\\
+% FE 473, total dec. 503\\
+0.09 0.940358\\
+% FE 459, total dec. 573\\
+0.08 0.801047\\
+% FE 444, total dec. 684\\
+0.07 0.649123\\
+% FE 379, total dec. 994\\
+0.06 0.381288\\
+% FE 344, total dec. 1968\\
+0.05 0.174797\\
+% FE 313, total dec. 6205\\
+0.04 0.0504432\\
+% FE 304, total dec. 51148\\
+0.03 0.00594354\\
+% FE 301, total dec. 985734\\
+0.02 0.000305356\\
+% FE 301, total dec. 1.97093e+06\\
+0.018 0.00015272\\
+% FE 301, total dec. 5.6135e+06\\
+0.016 5.36207e-05\\
+% FE 301, total dec. 1.26876e+07\\
+0.014 2.37239e-05\\
+% FE 301, total dec. 3.29437e+07\\
+0.012 9.13681e-06\\
+};
+}%
+
+
+\only<4->{%
+\addplot[
+    mark=square,
+color=blue, dotted,
+    mark=square,mark options={solid},
+    line width = 0.5pt
+]
+table[row sep=crcr] {
+% collect 300 frame errors or 60000000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.1, 0.05, 0.025, 0.0125, 
+% Decoding option: Genie-aided BP
+% [[257,121]], 224 checks, 15 iter, ep0=0.1
+% FE 364, total dec. 375\\
+0.1 0.970667\\
+% FE 344, total dec. 613\\
+0.0666667 0.561175\\
+% FE 315, total dec. 3418\\
+0.0444444 0.0921592\\
+% FE 301, total dec. 50861\\
+0.0296296 0.00591809\\
+% FE 301, total dec. 1.19484e+06\\
+0.0197531 0.000251917\\
+% FE 301, total dec. 2.01864e+07\\
+0.0131687 1.4911e-05\\
+};
+}%
+
+\only<2->{%
+\addplot[
+    mark=triangle,
+ color=blue, dashed,
+    mark options={solid},
+    line width = 0.5pt
+]
+table[row sep=crcr] {
+% collect 300 frame errors or 60000000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.1, 0.0666667, 0.0444444, 0.0296296, 0.0197531, 0.0131687, 0.00877915, 0.00585277, 0.00390184, 0.00260123, 0.00173415, 0.0011561, 
+% Decoding option: Flooding BP
+% [[257,121]], 224 checks, 15 iter, ep0=0.1
+% FE 425, total dec. 433\\
+0.1 0.981524\\
+% FE 392, total dec. 714\\
+0.0666667 0.54902\\
+% FE 330, total dec. 3097\\
+0.0444444 0.106555\\
+% FE 311, total dec. 15489\\
+0.0296296 0.0200788\\
+% FE 308, total dec. 29282\\
+0.0197531 0.0105184\\
+% FE 306, total dec. 39631\\
+0.0131687 0.00772123\\
+% FE 304, total dec. 63846\\
+0.00877915 0.00476146\\
+% FE 303, total dec. 105845\\
+0.00585277 0.00286268\\
+% FE 301, total dec. 217088\\
+0.00390184 0.00138653\\
+% FE 302, total dec. 442057\\
+0.00260123 0.00068317\\
+% FE 301, total dec. 758098\\
+0.00173415 0.000397046\\
+% FE 301, total dec. 1.87322e+06\\
+0.0011561 0.000160686\\
+};
+}%
+
+
+%D1 code ========================================================
+
+
+
+%C1 code ========================================================
+\only<3->{%
+\addplot[
+    mark=o,
+color=KITpalegreen,
+    line width = 0.5pt
+]
+table[row sep=crcr] {
+% check symplectic ok
+% collect 300 frame errors or 100000000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.12, 0.11, 0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.018, 
+% Decoding option: CAMEL
+% [[290,128]], 170 checks, 15 iter, ep0=0.1
+% FE 320, total dec. 320\\
+0.12 1\\
+% FE 320, total dec. 320\\
+0.11 1\\
+% FE 320, total dec. 320\\
+0.1 1\\
+% FE 319, total dec. 320\\
+0.09 0.996875\\
+% FE 320, total dec. 327\\
+0.08 0.978593\\
+% FE 319, total dec. 344\\
+0.07 0.927326\\
+% FE 317, total dec. 384\\
+0.06 0.825521\\
+% FE 314, total dec. 533\\
+0.05 0.589118\\
+% FE 307, total dec. 1066\\
+0.04 0.287992\\
+% FE 302, total dec. 4316\\
+0.03 0.0699722\\
+% FE 301, total dec. 59801\\
+0.02 0.00503336\\
+% FE 301, total dec. 113787\\
+0.018 0.00264529\\
+% collect 300 frame errors or 100000000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.016, 0.014, 0.012, 
+% Decoding option: CAMEL
+% [[290,128]], 170 checks, 15 iter, ep0=0.1
+% FE 301, total dec. 246331\\
+0.016 0.00122193\\
+% FE 302, total dec. 666356\\
+0.014 0.000453211\\
+};
+}%
+
+
+\only<4->{%
+\addplot[
+    mark=square,
+color=KITpalegreen,
+    mark=square,mark options={solid},
+    line width = 0.5pt
+]
+table[row sep=crcr] {
+% collect 300 frame errors or 100000000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.12, 0.11, 0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.018, 0.016, 0.014, 0.012, 
+% Decoding option: Genie-aided BP
+% [[290,128]], 170 checks, 15 iter, ep0=0.1
+% FE 320, total dec. 320\\
+0.12 1\\
+% FE 320, total dec. 320\\
+0.11 1\\
+% FE 320, total dec. 320\\
+0.1 1\\
+% FE 319, total dec. 325\\
+0.09 0.981538\\
+% FE 320, total dec. 325\\
+0.08 0.984615\\
+% FE 320, total dec. 342\\
+0.07 0.935673\\
+% FE 319, total dec. 387\\
+0.06 0.824289\\
+% FE 315, total dec. 574\\
+0.05 0.54878\\
+% FE 311, total dec. 1134\\
+0.04 0.27425\\
+% FE 305, total dec. 4192\\
+0.03 0.0727576\\
+% FE 301, total dec. 58957\\
+0.02 0.00510542\\
+% FE 301, total dec. 121538\\
+0.018 0.00247659\\
+% FE 301, total dec. 251262\\
+0.016 0.00119795\\
+% FE 301, total dec. 625529\\
+0.014 0.000481193\\
+% FE 301, total dec. 1.71533e+06\\
+0.012 0.000175477\\
+};
+}%
+
+\only<2->{%
+\addplot[
+    mark=triangle,
+ color=KITpalegreen, dashed,
+    mark options={solid},
+    line width = 0.5pt
+]
+table[row sep=crcr] {
+% collect 300 frame errors or 100000000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001, 0.001, 
+% Decoding option: Flooding BP
+% [[290,128]], 170 checks, 15 iter, ep0=0.1
+% FE 320, total dec. 320\\
+0.1 1\\
+% FE 319, total dec. 321\\
+0.09 0.993769\\
+% FE 320, total dec. 325\\
+0.08 0.984615\\
+% FE 320, total dec. 343\\
+0.07 0.932945\\
+% FE 319, total dec. 388\\
+0.06 0.822165\\
+% FE 317, total dec. 522\\
+0.05 0.60728\\
+% FE 306, total dec. 1139\\
+0.04 0.268657\\
+% FE 303, total dec. 4421\\
+0.03 0.0685365\\
+% FE 301, total dec. 39311\\
+0.02 0.00765689\\
+% FE 301, total dec. 110948\\
+0.01 0.00271298\\
+% FE 301, total dec. 112209\\
+0.009 0.00268249\\
+% FE 301, total dec. 125543\\
+0.008 0.00239758\\
+% FE 301, total dec. 149936\\
+0.007 0.00200752\\
+% FE 301, total dec. 193880\\
+0.006 0.00155251\\
+% FE 301, total dec. 232554\\
+0.005 0.00129432\\
+% FE 301, total dec. 314905\\
+0.004 0.000955844\\
+% FE 301, total dec. 565463\\
+0.003 0.000532307\\
+% FE 301, total dec. 999186\\
+0.002 0.000301245\\
+% FE 301, total dec. 3.62873e+06\\
+0.001 8.2949e-05\\
+};
+}%
+%C1 code ========================================================
+
+
+
+\only<2->{%
+\addplot [color=black!50!red, dashed, line width=0.5pt,mark=star, mark options={solid}, mark size = 2pt]table[row sep=crcr]{
+    0.08995451958872763 0.8074878458635921\\
+0.07910314675722364 0.6107653946066945\\
+0.06956079422694146 0.4151195836467042\\
+0.06140126800498785 0.26462050618904925\\
+0.049872983923963235 0.1197102765411727\\
+0.03990113244336744 0.05531797752399404\\
+0.029935772947204904 0.02295631924236914\\
+0.01989988536895992 0.006615389893015433\\
+0.009924666630948488 0.0008435452308265797\\
+};
+}%
+% \addlegendentry{H1 code};
+
+
+
+\end{axis}
+\end{tikzpicture}

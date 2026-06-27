@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+\tikzstyle{variable node}=[circle, draw=black, thick,  inner sep=0pt, minimum size=2.4mm]
+\tikzstyle{check node}=[rectangle, draw=black, thick, inner sep=0pt, minimum size=2.4mm]        
+\tikzstyle{xline} = [draw=KITblue,thick]       
+\tikzstyle{zline} = [draw=KITorange,thick,dashed,dash pattern=on 2pt off 1pt]       
+
+\foreach \x in {1,2,...,7}
+\node[variable node] (vn\x) at (0, 0.3+6-0.7*\x) [label=left:$\mathsf{v}_{\x}$]{};
+
+\foreach \x in {1,2,...,6}
+\node[check node] (cn\x) at (3.5, 0.3+5.6-0.7*\x) [label=right:$\mathsf{c}_{\x}$]{};
+% \node at (0, 0) {\footnotesize variable nodes (VN)};
+% \node at (3.5, 0) {\footnotesize check nodes (CN)};
+
+\foreach \x in {1,3,5,7}
+\path [xline] (cn1) -- (vn\x);
+\foreach \x in {2,3,6,7}
+\path [xline] (cn2) -- (vn\x);
+\foreach \x in {4,5,6,7}
+\path [xline] (cn3) -- (vn\x);
+
+\foreach \x in {1,3,5,7}
+\path [zline] (cn4) -- (vn\x);
+\foreach \x in {2,3,6,7}
+\path [zline] (cn5) -- (vn\x);
+\foreach \x in {4,5,6,7}
+\path [zline] (cn6) -- (vn\x);  
+\end{tikzpicture}
