@@ -1,0 +1,43 @@
+HEAD: 3d5f78c37 on submit-257-121-10; upstream main: 067168503
+origin/main after fetch: 067168503
+=== diff vs origin/main
+ codes/257-121-10.json | 4348 +++++++++++++++++++++++++++++++++++++++++++++++++
+ notes/257-121-10.md   |  145 ++
+ 2 files changed, 4493 insertions(+)
+=== status
+?? qechallenge-wsl.code-workspace
+=== qldpc_verify
+exit=0
+=== authorship as AlessioBaldelli99
+ok    codes/257-121-10.json: PR author @alessiobaldelli99 is listed
+exit=0
+=== authorship as LeaCat (expected FAIL)
+exit=1
+=== scope classify
+tier: 0
+classification: Tier 0 - code submission / non-critical change.
+=== scope check
+submission scope ok
+exit=0
+=== prose (committed note == working tree; only untracked uncited workspace file)
+prose check ok (1 file(s) checked)
+exit=0
+=== codes format
+check_codes_format.py: error: unrecognized arguments: codes/257-121-10.json
+=== validator pin
+ok: trusted validation stack matches the pin (52 files)
+=== codes format (as the hook runs it)
+10:    python3 verify/check_codes_format.py --files $changed_codes
+codes format ok (1 file(s) checked)
+exit=0
+=== bundle + patches
+067168503d96413a34a8a235fdc9166429d71fbf 
+The bundle uses this hash algorithm: sha1
+0001-Add-257-121-10-dyadic-CAMEL-QD-LDPC-code-weight-9plu.patch
+0002-Note-for-257-121-10-state-the-distance-lower-bound-w.patch
+0003-Note-for-257-121-10-nearest-same-cell-neighbours-CAM.patch
+=== restore user clone
+  (use "git pull" to update your local branch)
+main
+?? qechallenge-wsl.code-workspace
+  submit-257-121-10 3d5f78c37 [ahead 3] Note for [[257,121,10]]: nearest same-cell neighbours, CAMEL (ISIT 2024) credit, upper-bound wording

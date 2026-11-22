@@ -1,0 +1,83 @@
+{
+  "candidate": {
+    "d": 10,
+    "family": "other",
+    "fingerprint": "473e984220fd3fac",
+    "k": 121,
+    "locality_class": "unrestricted",
+    "n": 257,
+    "sector_distances": {
+      "X": {
+        "exact": false,
+        "lower": null,
+        "refuted_to": null,
+        "upper": 10,
+        "witness_weight": 10
+      },
+      "Z": {
+        "exact": false,
+        "lower": null,
+        "refuted_to": null,
+        "upper": 10,
+        "witness_weight": 10
+      },
+      "d": {
+        "exact": false,
+        "lower": null,
+        "upper": 10
+      }
+    },
+    "signature": "b8508d5b5bde06ea",
+    "weight_class": "weight-9plus"
+  },
+  "gates": {
+    "dedup": {
+      "exact_duplicate_of": null,
+      "wl_equivalent_of": null
+    },
+    "novelty": {
+      "advances_by": [
+        "d",
+        "n",
+        "w"
+      ],
+      "board": "CSS",
+      "board_advancing": true,
+      "cell": [
+        "weight-9plus",
+        "unrestricted"
+      ],
+      "d_only_gain": false,
+      "d_only_peers": [],
+      "dominated_by": [],
+      "literature_novelty": "unverified"
+    },
+    "refute": {
+      "detail": "no lighter logical in 8000 RIS trials (seed 1477150203)",
+      "refuted": false,
+      "seed": 1477150203
+    },
+    "verify": {
+      "failed_checks": [],
+      "locality_class": "unrestricted",
+      "ok": true,
+      "weight_class": "weight-9plus"
+    }
+  },
+  "labels": [
+    "advances the weight-9plus x unrestricted board",
+    "literature novelty UNVERIFIED"
+  ],
+  "passed": true,
+  "recorded": {
+    "candidate": "257-121-10.json",
+    "content_digest": "87cb12ca368fc4625d67d7e23b4a4c21c5fb690cbd980c2b103c04f3ffbfb0ef",
+    "recorded_at": "2026-11-20T13:46:04.101287+00:00",
+    "refutation_reused": false,
+    "run_id": "20261120-144604-Liu-KIT-485"
+  },
+  "validator": {
+    "seed": 1477150203,
+    "source_sha256": "2a6f68e79b78641e599db20610b1c19eb588cdc7779bb80b3d922bd1bc0b0b29"
+  }
+}

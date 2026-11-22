@@ -1,0 +1,14 @@
+257-121-10.json: n=257 k=121 (claimed 121) w=17 css_ok=True claim d<=10 (X=10, Z=10)
+  pair_depth=64 threads=12
+  trials=   200,000 seed=101: d<=10 side=X [28s] witness=ok
+    NEW BEST d<=10 side=X support=[4, 14, 31, 43, 90, 108, 140, 177, 197, 240]
+  trials=   200,000 seed=102: d<=10 side=X [36s] witness=ok
+  trials= 1,000,000 seed=201: d<=10 side=X [125s] witness=ok
+  trials= 1,000,000 seed=202: d<=10 side=X [98s] witness=ok
+  trials= 2,000,000 seed=301: d<=10 side=X [242s] witness=ok
+  trials= 2,000,000 seed=302: d<=10 side=X [176s] witness=ok
+VERDICT: n=257 k=121 claim=10 d_ub=10 eff(kd^2/n)=47.08 -> holds
+
+real	11m46.918s
+user	135m10.136s
+sys	0m4.195s
