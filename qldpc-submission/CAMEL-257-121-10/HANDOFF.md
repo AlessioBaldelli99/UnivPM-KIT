@@ -4,8 +4,6 @@
 
 **Who opens the PR:** @AlessioBaldelli99, or one of the other listed @handle authors (@sisimiao, @JonathanMandelbaum, @lschmalen). CI's authorship check (`verify/check_authorship.py`) requires the PR opener to be a listed author. That check was run locally: it passes for @AlessioBaldelli99 and fails for @LeaCat.
 
-**Wait for consent.** Open the PR only after all five constructors have agreed to a public leaderboard entry.
-
 **What you are submitting:** three commits on top of unitaryfoundation/qldpc-challenge `main` @ `067168503`. They add two files:
 
 - `codes/257-121-10.json`: the entry. It is a CSS code with n = 257, k = 121 and d ≤ 10 on both sides, as witness-backed upper bounds. Its max check weight is 17, so it sits in the weight-9plus × unrestricted cell.
